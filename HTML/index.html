@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Horror Movie Recommender</title>
+    <style>
+        body {
+            background-color: black;
+            color: #ff6208;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            
+            background-image: url('https://codehs.com/uploads/f5896e4a159e30123fcae81d4767dc6a'); /* Replace with your image URL */
+            /*background-repeat: repeat-y; Repeat the image vertically */
+            background-position: left;
+            
+        }
+        .container {
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 48px;
+        }
+        
+        h2 {
+            font-size: 24px;
+        }
+        
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 2px solid #ff6208;
+            border-radius: 5px;
+            font-size: 16px;
+            color: black;
+        }
+        #movie-dropdown {
+            display: none;
+            width: 300px;
+            background-color: black;
+            border: 1px solid #ff6208;
+            color: #ff6208;
+        }
+        #movie-dropdown ul {
+            list-style: none;
+            padding: 0;
+        }
+        #movie-dropdown li {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #movie-dropdown li:hover {
+            background-color: #ff6208;
+            color: black;
+        }
+        #buttons {
+            margin-top: 200px;
+            display: flex;
+            flex-direction: row;
+        }
+        .button {
+            background-color: #ff6208;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: black;
+            color: #ff6208;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DARK DISCOVERIES</h1>
+        <h2>What is your favorite horror movie?</h2>
+        <input type="text" id="movie-input" onkeyup="showDropdown()">
+        <div id="movie-dropdown">
+            <ul>
+                <!-- Options from the database will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+    
+    <div id="buttons">
+        <a href="about.html" class="button" style="text-decoration: none;">About Us</a>
+        <a href="contact.html" class="button" style="text-decoration: none;">Contact</a>
+    </div>
+    
+    <script>
+        // Simulated database values (you would replace this with actual database integration)
+        const databaseValues = [
+            "The Shining",
+            "Psycho",
+            "The Exorcist",
+            "Get Out",
+            "Hereditary",
+            "A Nightmare on Elm Street",
+        ];
+
+        const inputElement = document.getElementById("movie-input");
+        const dropdownElement = document.getElementById("movie-dropdown");
+
+        function showDropdown() {
+            const userInput = inputElement.value.toLowerCase();
+            const filteredValues = databaseValues.filter(value => value.toLowerCase().includes(userInput));
+
+            // Clear the existing dropdown values
+            dropdownElement.innerHTML = "";
+
+            if (userInput.length > 0 && filteredValues.length > 0) {
+                dropdownElement.style.display = "block";
+                filteredValues.forEach(value => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = value;
+                    dropdownElement.querySelector("ul").appendChild(listItem);
+                });
+            } else {
+                dropdownElement.style.display = "none";
+            }
+        }
+
+        // Add an event listener to handle selecting a value from the dropdown
+        dropdownElement.addEventListener("click", function(e) {
+            if (e.target.tagName === "LI") {
+                inputElement.value = e.target.textContent;
+                dropdownElement.style.display = "none";
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>

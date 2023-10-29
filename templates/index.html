@@ -82,22 +82,22 @@
 <body>
     <div class="container">
         <h1>Movie Recommender</h1>
-    <form method="POST">
-        <select name="movie" id="movie">
-            {% for movie in movies %}
-                <option value="{{ movie }}">{{ movie }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Get Recommendations">
-    </form>
-    {% if recommendations %}
-        <h2>Recommendations:</h2>
-        <ul>
-            {% for recommendation in recommendations %}
-                <li>{{ recommendation }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <form method="POST">
+            <select name="movie">
+                {% for movie in movies %}
+                    <option value="{{ movie }}">{{ movie }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Get Recommendations">
+        </form>
+        {% if recommendations %}
+            <h2>Recommendations:</h2>
+            <ul>
+                {% for recommendation in recommendations %}
+                    <li>{{ recommendation }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
     
     <div id="buttons">

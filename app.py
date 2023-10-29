@@ -22,6 +22,7 @@ import pandas as pd
 import numpy as np 
 df1=pd.read_csv('TMDB/tmdb_5000_credits.csv')
 df2=pd.read_excel('TMDB/tmdb_5000_horror.xlsx', dtype={'title' : str})
+movie_titles = list(df2['title'])
 
 df1.columns = ['id','tittle','cast','crew']
 df2= df2.merge(df1, on='id')
@@ -176,7 +177,6 @@ def index():
     return render_template('index.html', movies=movie_titles)
 
 if __name__ == '__main__':
-    movie_data = df2  # Load your movie data from CSV
-    movie_titles = list(movie_data['title'])# Extract movie titles
     app.run(debug=True)
+
 

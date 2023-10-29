@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-app = Flask(__name__)
 
 import sys
 import subprocess
@@ -22,7 +21,7 @@ except subprocess.CalledProcessError:
 import pandas as pd 
 import numpy as np 
 df1=pd.read_csv('TMDB/tmdb_5000_credits.csv')
-df2=pd.read_excel('TMDB/tmdb_5000_horror.xlsx')
+df2=pd.read_excel('TMDB/tmdb_5000_horror.xlsx', dtype={'title' : str})
 
 df1.columns = ['id','tittle','cast','crew']
 df2= df2.merge(df1, on='id')
@@ -94,7 +93,7 @@ def get_recommendations(title, cosine_sim=cosine_sim):
     movie_indices = [i[0] for i in sim_scores]
 
     # Return the top 10 most similar movies
-    return df2['title'].iloc[movie_indices]
+    return df2['title'].iloc[movie_indices].to_list()
 
 # Parse the stringified features into their corresponding python objects
 from ast import literal_eval
@@ -164,15 +163,20 @@ df2 = df2.reset_index()
 indices = pd.Series(df2.index, index=df2['title'])
 
 
-@app.route('/')
-def index():
-    return render_template('index.html', movie_titles=df2['title'])
 
-@app.route('/recommend', methods=['POST'])
-def get_horror_recommendations():
-    selected_title = request.form['selected_title']
-    recommendations = get_recommendations(selected_title)
-    return render_template('results.html', recommendations=recommendations)
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        selected_movie = request.form['movie']
+        recommendations = get_recommendations(selected_movie)
+        return render_template('index.html', recommendations=recommendations, movies=movie_titles)
+    return render_template('index.html', movies=movie_titles)
 
 if __name__ == '__main__':
+    movie_data = df2  # Load your movie data from CSV
+    movie_titles = list(movie_data['title'])# Extract movie titles
     app.run(debug=True)
+

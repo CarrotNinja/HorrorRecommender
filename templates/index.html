@@ -81,63 +81,29 @@
 </head>
 <body>
     <div class="container">
-        <h1>DARK DISCOVERIES</h1>
-        <h2>What is your favorite horror movie?</h2>
-        <input type="text" id="movie-input" onkeyup="showDropdown()">
-        <div id="movie-dropdown">
-            <ul>
-                <!-- Options from the database will be dynamically added here -->
-            </ul>
-        </div>
+        <h1>Movie Recommender</h1>
+    <form method="POST">
+        <select name="movie" id="movie">
+            {% for movie in movies %}
+                <option value="{{ movie }}">{{ movie }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Get Recommendations">
+    </form>
+    {% if recommendations %}
+        <h2>Recommendations:</h2>
+        <ul>
+            {% for recommendation in recommendations %}
+                <li>{{ recommendation }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     </div>
     
     <div id="buttons">
         <a href="about.html" class="button" style="text-decoration: none;">About Us</a>
         <a href="contact.html" class="button" style="text-decoration: none;">Contact</a>
-    </div>
-    
-    <script>
-        // Simulated database values (you would replace this with actual database integration)
-        const databaseValues = [
-            "The Shining",
-            "Psycho",
-            "The Exorcist",
-            "Get Out",
-            "Hereditary",
-            "A Nightmare on Elm Street",
-        ];
-
-        const inputElement = document.getElementById("movie-input");
-        const dropdownElement = document.getElementById("movie-dropdown");
-
-        function showDropdown() {
-            const userInput = inputElement.value.toLowerCase();
-            const filteredValues = databaseValues.filter(value => value.toLowerCase().includes(userInput));
-
-            // Clear the existing dropdown values
-            dropdownElement.innerHTML = "";
-
-            if (userInput.length > 0 && filteredValues.length > 0) {
-                dropdownElement.style.display = "block";
-                filteredValues.forEach(value => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = value;
-                    dropdownElement.querySelector("ul").appendChild(listItem);
-                });
-            } else {
-                dropdownElement.style.display = "none";
-            }
-        }
-
-        // Add an event listener to handle selecting a value from the dropdown
-        dropdownElement.addEventListener("click", function(e) {
-            if (e.target.tagName === "LI") {
-                inputElement.value = e.target.textContent;
-                dropdownElement.style.display = "none";
-            }
-        });
-    </script>
-    
+    </div>    
     
 </body>
 </html>

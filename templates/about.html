@@ -1,7 +1,48 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        My great website!
+<head>
+    <title>About Dark Discoveries</title>
+    <style>
+        body {
+            background-color: black;
+            color: orange;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: orange;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>About Dark Discoveries</h1>
+        <p>Dark Discoveries is your go-to platform for personalized horror movie recommendations. We understand your love for horror and aim to bring you the best chilling experiences.</p>
+        <p>How it works:</p>
+        <p>Our recommendation system uses your favorite horror movies as a starting point. Just enter your favorite horror movie in the search bar, and we'll provide you with a curated list of similar movies to keep you on the edge of your seat.</p>
+        <p>Our team of horror enthusiasts carefully selects and categorizes the movies, ensuring you'll find the perfect blend of terror and entertainment.</p>
+    </div>
 
-        <a href="index.html">Home</a>
-    </body>
+    <a href="{{ url_for('index') }}" class="button" style="text-decoration: none; margin-top: 20px;">Back to Home</a>
+</body>
 </html>
